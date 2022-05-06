@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\controllers\API\v1\Auth\LoginController;
-use App\Http\controllers\API\v1\Auth\RegisterController;
-use App\Http\controllers\API\v1\Auth\ForgotPasswordController;
-use App\Http\controllers\API\v1\Auth\ResetPasswordController;
+use App\Http\Controllers\API\v1\Auth\LoginController;
+use App\Http\Controllers\API\v1\Auth\RegisterController;
+use App\Http\Controllers\API\v1\Auth\ForgotPasswordController;
+use App\Http\Controllers\API\v1\Auth\ResetPasswordController;
 use App\Http\Controllers\API\v1\CategoryController;
 use App\Http\Controllers\API\v1\PostController;
 use App\Http\Controllers\API\v1\CommentController;
