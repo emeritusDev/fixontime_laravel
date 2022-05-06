@@ -31,10 +31,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /* 
     Authentication Route
 */
-Route::post('/login', LoginController::class);
-Route::post('/register', RegisterController::class);
-Route::post('/forgot_password', ForgotPasswordController::class);
-Route::post('/reset_password', ResetPasswordController::class);
+// Route::post('/login', LoginController::class);
+Route::post('/login', [LoginController::class, 'index']);
+Route::post('/register', [RegisterController::class, 'index']);
+Route::post('/forgot_password', [ForgotPasswordController::class, 'index']);
+Route::post('/reset_password', [ResetPasswordController::class, 'index']);
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('posts', PostController::class);

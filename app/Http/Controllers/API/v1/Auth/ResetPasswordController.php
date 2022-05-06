@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\API\v1\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\BaseController;
 use Illuminate\Http\Request;
 use DB; 
 use Carbon\Carbon; 
 use Illuminate\Support\Str;
 
-class ResetPasswordController extends Controller
+class ResetPasswordController extends BaseController
 {
     /**
      * Handle the incoming request.
@@ -16,7 +16,7 @@ class ResetPasswordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $request->validate([
             'email' => 'required|email|exists:users',

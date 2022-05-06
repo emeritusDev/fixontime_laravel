@@ -15,7 +15,7 @@ class RegisterController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(RegisterValidationRequest $request)
+    public function index(RegisterValidationRequest $request)
     {
         $input = $request->validated();
         $user = User::create($input);

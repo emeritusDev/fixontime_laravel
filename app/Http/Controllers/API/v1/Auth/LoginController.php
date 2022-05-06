@@ -15,7 +15,7 @@ class LoginController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(LoginValidationRequest $request)
+    public function index(LoginValidationRequest $request)
     {
         error_log($request->email);
         if(Auth::attempt($request->validated())){ 
