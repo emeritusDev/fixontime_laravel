@@ -10,8 +10,8 @@ use App\Http\Resources\Post\Post as PostMiniResource;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Services\Post\IPostService;
-use App\Http\Requests\Post\StorePostRequest;
-use App\Http\Requests\Post\UpdatePostRequest;
+use App\Http\Requests\post\StorePostRequest;
+use App\Http\Requests\post\UpdatePostRequest;
 
 class PostController extends BaseController
 {
