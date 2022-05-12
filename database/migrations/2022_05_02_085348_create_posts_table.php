@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('content');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->string('image');
             $table->foreignId('user_id')
                     ->nullable()
@@ -30,6 +30,8 @@ return new class extends Migration
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
             $table->timestamps();
+
+            $table->index('slug', 'SLUG_IDX');
         });
     }
 

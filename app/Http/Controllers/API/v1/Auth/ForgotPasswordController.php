@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\API\v1\Auth;
 
 use App\Http\Controllers\API\BaseController;
-use Illuminate\Http\Request;
+use App\Http\Requests\Auth\ForgotPasswordValidationRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon; 
+use App\Events\ResetPasswordProcessed as ResetPasswordEvent;
 
 class ForgotPasswordController extends BaseController
 {
@@ -16,25 +17,20 @@ class ForgotPasswordController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(ForgotPasswordValidationRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users',
-        ]);
-
-        $token = Str::random(64);
-
-        DB::table('password_resets')->insert([
-            'email' => $request->email, 
-            'token' => $token, 
-            'created_at' => Carbon::now()
-          ]);
-
-        \Mail::send('mail.forgot_password', ['token' => $token], function($message) use($request){
-            $message->to($request->email);
-            $message->subject('Reset Password');
-        });
-
-        return back()->with('message', 'We have e-mailed your password reset link!');
+        try {
+            $userEmail = $request->validated()['email'];
+            $token = Str::random(64);
+            DB::table('password_resets')->insert([
+                'email' => $userEmail, 
+                'token' => $token, 
+                'created_at' => Carbon::now()
+            ]);
+            event(new ResetPasswordEvent($userEmail, $token));
+            return $this->handleResponse([], 'We have e-mailed your password reset link!');
+        } catch (\Throwable $th) {
+            return $this->handleError('Unauthorised.', ['error'=>'An error occured. Please try again!']);
+        }
     }
 }

@@ -14,7 +14,7 @@ use App\Http\Requests\Learning\UpdateLearningRequest;
 
 class LearningController extends BaseController
 {
-    private $learning;
+    private ILearningService $learning;
 
     public function __construct(ILearningService $learning)
     {

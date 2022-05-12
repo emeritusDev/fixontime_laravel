@@ -10,7 +10,7 @@ interface IReadOnlyRepository
     /**
     * @return Collection
     */
-    public function fetchAll();
+    public function fetchAll(string|int|null $paginateValue);
 
     /**
     * @param $id

@@ -24,7 +24,7 @@ class StorePostRequest extends FormRequest
             "content" => "required|string",
             "slug" => "required|string",
             "image" => "required|image|max:514",
-            "user_id" => "required|string|exists:users,id",
+            "user_id" => "required|exists:users,id",
             "category_id" => "required|string|exists:categories,id",
         ];
     }
@@ -44,7 +44,8 @@ class StorePostRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            "slug" => Str::slug($this->title, '-')
+            "slug" => Str::slug($this->title, '-'),
+            "user_id" => auth('sanctum')->user()->id, 
         ]);
     }
 }

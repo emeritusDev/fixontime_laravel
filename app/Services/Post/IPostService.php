@@ -3,9 +3,9 @@ namespace App\Services\Post;
 
 interface IPostService 
 {
-    public function createPost($data);
+    public function createPost(array $data);
 
-    public function getAllPost();
+    public function getAllPost(int $paginateValue);
 
     public function getAllPostCount();
 

@@ -34,8 +34,10 @@ class ReadOnlyRespository implements IReadOnlyRepository
     /**
     * @return Collection
     */
-    public function fetchAll(): Collection
+    public function fetchAll($paginateValue = null)
     {
+        if($paginateValue)
+            return $this->model->paginate($paginateValue);
         return $this->model->all();
     }
 }

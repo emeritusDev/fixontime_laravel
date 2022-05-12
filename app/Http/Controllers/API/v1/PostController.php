@@ -28,9 +28,12 @@ class PostController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() 
+    public function index(Request $request) 
     {
+        $paginateValue = $request->query('paginate');
         try {
+            if($paginateValue)
+                return PostMiniResource::collection($this->post->getAllPost($paginateValue));
             return $this->handleResponse(PostMiniResource::collection($this->post->getAllPost()), "", Response::HTTP_OK);
         } catch (\Throwable $err) {
             report($err);

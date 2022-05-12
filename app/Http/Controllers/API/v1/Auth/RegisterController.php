@@ -9,12 +9,6 @@ use App\Models\User;
 
 class RegisterController extends BaseController
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function index(RegisterValidationRequest $request)
     {
         $input = $request->validated();

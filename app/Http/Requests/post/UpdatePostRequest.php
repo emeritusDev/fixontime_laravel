@@ -29,7 +29,6 @@ class UpdatePostRequest extends FormRequest
             "content" => "required|string",
             "slug" => "required|string",
             "image" => "nullable|image|max:514",
-            "user_id" => "required|string|exists:users,id",
             "category_id" => "required|string|exists:categories,id",
         ];
     }
@@ -49,7 +48,7 @@ class UpdatePostRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            "slug" => Str::slug($this->title, '-')
+            "slug" => Str::slug($this->title, '-'),
         ]);
     }
 }

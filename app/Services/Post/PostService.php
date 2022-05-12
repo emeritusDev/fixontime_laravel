@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Cache;
 class PostService implements IPostService
 {
 
-    protected $postRepository;
-    private $storage;
+    protected PostRepositoryInterface $postRepository;
+    private IStorageService $storage;
 
     public function __construct(PostRepositoryInterface $postRepository, IStorageService $storage)
     {
@@ -32,9 +32,9 @@ class PostService implements IPostService
         
     }
 
-    public function getAllPost()
+    public function getAllPost($paginateValue = null)
     {
-        return $this->postRepository->fetchAll();
+        return $this->postRepository->fetchAll($paginateValue);
     }
 
     public function getAllPostCount()

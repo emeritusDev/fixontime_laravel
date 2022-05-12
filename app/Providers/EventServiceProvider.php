@@ -7,7 +7,9 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Events\PostCreated;
+use App\Events\ResetPasswordProcessed;
 use App\Listeners\SendPostCreatedNotification;
+use App\Listeners\SendResetPasswordNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PostCreated::class => [
             SendPostCreatedNotification::class,
+        ],
+        ResetPasswordProcessed::class => [
+            SendResetPasswordNotification::class,
         ],
     ];
 

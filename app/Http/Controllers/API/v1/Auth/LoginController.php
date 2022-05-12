@@ -9,12 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends BaseController
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function index(LoginValidationRequest $request)
     {
         error_log($request->email);
