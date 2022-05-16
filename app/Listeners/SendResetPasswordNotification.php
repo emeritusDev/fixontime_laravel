@@ -29,6 +29,6 @@ class SendResetPasswordNotification
     {
         error_log($event->token);
         \Mail::to($event->email)
-                ->send(new ResetPasswordTemplate($event->token));
+                ->send(new ResetPasswordTemplate($event->token, $event->email));
     }
 }

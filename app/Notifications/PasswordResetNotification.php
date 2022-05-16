@@ -12,15 +12,17 @@ class PasswordResetNotification extends Notification implements ShouldQueue
     use Queueable;
 
     public $token;
+    public $email;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($email)
     {
         $this->token = $token;
+        $this->email = $email;
     }
 
     /**
@@ -42,7 +44,7 @@ class PasswordResetNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = "https://fixontime.com/reset";
+        $url = "https://fixontime.com/reset?token=".$this->token."&&email=".$this->email;
         return (new MailMessage)->view(
             'mail.forgot_password.blade', ['url' => $this->url]
         );
