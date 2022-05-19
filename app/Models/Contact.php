@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Contact extends Model
 {
@@ -18,4 +19,15 @@ class Contact extends Model
         'message',
         'status'
     ];
+
+    /**
+     * Scope a query to only include active users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopeNewContact($query)
+    {
+        $query->whereDate('created_at', Carbon::today())->get();
+    }
 }

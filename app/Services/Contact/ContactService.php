@@ -35,6 +35,16 @@ class ContactService implements IContactService
         });
     }
 
+    public function getNewContact()
+    {
+        return $this->contactRepository->getNewContact();
+    }
+
+    public function getNewContactCount()
+    {
+        return $this->contactRepository->getNewContact()->count();
+    }
+
     public function getContactById(int $id)
     {
         return $this->contactRepository->findById($id);

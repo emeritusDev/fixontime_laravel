@@ -43,15 +43,18 @@ class AnalyticsController extends BaseController
             $noOfPost = $this->post->getAllPostCount();
             $noOfSubsciber = $this->subscription->getAllSubscriptionCount();
             $noOfLearning = $this->learning->getAllLearningCount();
-            $noOfContact = $this->contact->getAllContactCount();
+            $noOfContact = $this->contact->getNewContactCount();
+            $newContact = $this->contact->getNewContact();
             return $this->handleResponse([
                 "post_count" => $noOfPost,
                 "newContact_count" => $noOfContact,
                 "learning_count" => $noOfLearning,
                 "subscription_count" => $noOfSubsciber,
+                "new_contact" => $newContact,
             ], "", Response::HTTP_OK);
         } catch (\Throwable $err) {
             report($err);
+            return $err;
             return $this->handleError("An error occur while retrieving data", [], Response::HTTP_INTERNAL_SERVER_ERROR );
         }
     }

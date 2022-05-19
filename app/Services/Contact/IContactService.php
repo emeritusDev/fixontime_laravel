@@ -12,4 +12,8 @@ interface IContactService
     public function getContactById(int $id);
 
     public function deleteContactById(int|string $id);
+
+    public function getNewContactCount();
+
+    public function getNewContact();
 }
