@@ -39,8 +39,8 @@ class ReadWriteModifyRepository implements IReadOnlyRepository, IWriteModifyRepo
     public function fetchAll($paginateValue = null)
     {
         if($paginateValue)
-            return $this->model->paginate($paginateValue);
-        return $this->model->all();
+            return $this->model->orderBy('id', 'desc')->paginate($paginateValue);
+        return $this->model->orderBy('id', 'desc')->get();
     }
 
     public function create(array $attributes): Model

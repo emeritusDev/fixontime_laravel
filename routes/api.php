@@ -46,9 +46,11 @@ Route::apiResource('comments', CommentController::class)->except([
 Route::apiResource('contacts', ContactController::class)->except([
      'update'
 ]);
+Route::get('contacts/csv/download', [ContactController::class, 'exportCsv']);
 Route::apiResource('subscriptions', SubscriptionController::class)->except([
     'update', 'show'
 ]);
+Route::get('subscriptions/csv/download', [SubscriptionController::class, 'exportCsv']);
 Route::apiResource('analytics', AnalyticsController::class)->only([
     'index'
 ]);

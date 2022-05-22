@@ -11,6 +11,8 @@ use Illuminate\Http\JsonResponse;
 use App\Services\Subscription\ISubscriptionService;
 use App\Http\Requests\Subscription\StoreSubscriptionRequest;
 use App\Http\Requests\Subscription\UpdateSubscriptionRequest;
+use App\Exports\SubscriptionsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SubscriptionController extends BaseController
 {
@@ -64,6 +66,16 @@ class SubscriptionController extends BaseController
         try {
             $this->subscription->deleteSubscriptionById($id);
             return $this->handleResponse([], "deleted successfully", Response::HTTP_OK);
+        } catch (\Throwable $e) {
+            report($e);
+            return $this->handleError($e->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR );
+        }
+    }
+
+    public function exportCsv()
+    {
+        try {
+            return Excel::download(new SubscriptionsExport, 'FixOnTime-subscription.xlsx');
         } catch (\Throwable $e) {
             report($e);
             return $this->handleError($e->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR );

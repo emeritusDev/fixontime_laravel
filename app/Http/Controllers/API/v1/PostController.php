@@ -37,6 +37,7 @@ class PostController extends BaseController
             return $this->handleResponse(PostMiniResource::collection($this->post->getAllPost()), "", Response::HTTP_OK);
         } catch (\Throwable $err) {
             report($err);
+            return $err;
             return $this->handleError("An error occur while retrieving available post", [], Response::HTTP_INTERNAL_SERVER_ERROR );
         }
     }

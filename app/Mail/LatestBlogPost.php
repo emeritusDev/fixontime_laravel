@@ -12,6 +12,7 @@ class LatestBlogPost extends Mailable
 {
     use Queueable, SerializesModels;
     public $post;
+    public $url;
     /**
      * Create a new message instance.
      *
@@ -20,6 +21,7 @@ class LatestBlogPost extends Mailable
     public function __construct(Post $post)
     {
         $this->post = $post;
+        $this->url = Config('app.url')."/blog";
     }
 
     /**

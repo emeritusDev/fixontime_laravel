@@ -11,6 +11,8 @@ use Illuminate\Http\JsonResponse;
 use App\Services\Contact\IContactService;
 use App\Http\Requests\Contact\StoreContactRequest;
 use App\Http\Requests\Contact\UpdateContactRequest;
+use App\Exports\ContactsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ContactController extends BaseController
 {
@@ -18,7 +20,7 @@ class ContactController extends BaseController
 
     public function __construct(IContactService $contact)
     {
-        $this->middleware('auth:sanctum', ['except' => ['store']]);
+        $this->middleware('auth:sanctum', ['except' => ['store','exportCsv']]);
         $this->contact = $contact;
     }
 
@@ -97,6 +99,16 @@ class ContactController extends BaseController
         try {
             $this->contact->deleteContactById($id);
             return $this->handleResponse([], "deleted successfully", Response::HTTP_OK);
+        } catch (\Throwable $e) {
+            report($e);
+            return $this->handleError($e->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR );
+        }
+    }
+
+    public function exportCsv()
+    {
+        try {
+            return Excel::download(new ContactsExport, 'FixOnTime-contact.xlsx');
         } catch (\Throwable $e) {
             report($e);
             return $this->handleError($e->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR );
