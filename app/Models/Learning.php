@@ -20,7 +20,7 @@ class Learning extends Model
     protected function thumbnail(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => config('app.url')."xxx/storage/".$value,
+            get: fn ($value) => config('app.url')."/storage/".$value,
         );
     }
 }
