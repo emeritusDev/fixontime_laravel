@@ -28,7 +28,7 @@ class UpdateLearningRequest extends FormRequest
             "title" => "required|string|unique:learnings,title,".$this->learning,
             "slug" => "required|string",
             "url" => "required|string",
-            "thumbnail" => "required|image|max:514",
+            "thumbnail" => "nullable|image|max:514",
         ];
     }
 

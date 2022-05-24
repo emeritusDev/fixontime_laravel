@@ -11,4 +11,9 @@ class Subscription extends Model
     protected $fillable = [
         'email',
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
+     ];
 }

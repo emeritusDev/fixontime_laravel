@@ -25,7 +25,7 @@ class ContactRepository extends ReadWriteModifyRepository  implements IContactRe
     }
 
     public function getNewContact() {
-        return $this->model->newContact();
+        return $this->model->newContact()->get();
     }
 
 }

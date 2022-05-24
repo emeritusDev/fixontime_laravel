@@ -20,6 +20,11 @@ class Contact extends Model
         'status'
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
+     ];
+
     /**
      * Scope a query to only include active users.
      *
@@ -28,6 +33,6 @@ class Contact extends Model
      */
     public function scopeNewContact($query)
     {
-        $query->whereDate('created_at', Carbon::today())->get();
+        $query->whereDate('created_at', Carbon::today());
     }
 }

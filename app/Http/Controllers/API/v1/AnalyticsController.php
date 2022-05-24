@@ -10,6 +10,7 @@ use App\Services\Learning\ILearningService;
 use App\Services\Contact\IContactService;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Resources\Contact\ContactCollection;
 
 class AnalyticsController extends BaseController
 {
@@ -41,7 +42,7 @@ class AnalyticsController extends BaseController
     {
         try {
             $noOfPost = $this->post->getAllPostCount();
-            $noOfSubsciber = $this->subscription->getAllSubscriptionCount();
+            $noOfSubscriber = $this->subscription->getAllSubscriptionCount();
             $noOfLearning = $this->learning->getAllLearningCount();
             $noOfContact = $this->contact->getNewContactCount();
             $newContact = $this->contact->getNewContact();
@@ -49,8 +50,8 @@ class AnalyticsController extends BaseController
                 "post_count" => $noOfPost,
                 "newContact_count" => $noOfContact,
                 "learning_count" => $noOfLearning,
-                "subscription_count" => $noOfSubsciber,
-                "new_contact" => $newContact,
+                "subscription_count" => $noOfSubscriber,
+                "new_contact" => new ContactCollection($newContact),
             ], "", Response::HTTP_OK);
         } catch (\Throwable $err) {
             report($err);
