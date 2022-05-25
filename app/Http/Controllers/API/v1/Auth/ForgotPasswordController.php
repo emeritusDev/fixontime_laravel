@@ -30,6 +30,7 @@ class ForgotPasswordController extends BaseController
             event(new ResetPasswordEvent($userEmail, $token));
             return $this->handleResponse([], 'We have e-mailed your password reset link!');
         } catch (\Throwable $th) {
+            return $th;
             return $this->handleError('Unauthorised.', ['error'=>'An error occured. Please try again!']);
         }
     }

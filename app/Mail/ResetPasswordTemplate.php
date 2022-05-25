@@ -11,15 +11,19 @@ class ResetPasswordTemplate extends Mailable
 {
     use Queueable, SerializesModels;
     public $token;
+    public $email;
+    public $url;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($token, $email)
     {
         $this->token = $token;
+        $this->email = $email;
+        $this->url = config('app.frontend_url')."/reset?token=".$token."&&email=".$email;
     }
 
     /**
