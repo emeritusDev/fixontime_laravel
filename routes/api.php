@@ -8,6 +8,7 @@ use App\Http\Controllers\API\v1\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\v1\Auth\ResetPasswordController;
 use App\Http\Controllers\API\v1\CategoryController;
 use App\Http\Controllers\API\v1\PostController;
+use App\Http\Controllers\API\v1\ProductController;
 use App\Http\Controllers\API\v1\CommentController;
 use App\Http\Controllers\API\v1\ContactController;
 use App\Http\Controllers\API\v1\SubscriptionController;
@@ -54,6 +55,9 @@ Route::get('subscriptions/csv/download', [SubscriptionController::class, 'export
 Route::apiResource('analytics', AnalyticsController::class)->only([
     'index'
 ]);
+
+Route::get('/brochure/{tag}/download', [ProductController::class, 'downloadBrochure']);
+
 Route::fallback(function (){
     abort(404, 'API resource not found');
 });
