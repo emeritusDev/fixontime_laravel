@@ -11,6 +11,8 @@ use App\Http\Controllers\API\v1\PostController;
 use App\Http\Controllers\API\v1\ProductController;
 use App\Http\Controllers\API\v1\CommentController;
 use App\Http\Controllers\API\v1\ContactController;
+use App\Http\Controllers\API\v1\ProductRequestController;
+use App\Http\Controllers\API\v1\ServiceEnquiryController;
 use App\Http\Controllers\API\v1\SubscriptionController;
 use App\Http\Controllers\API\v1\LearningController;
 use App\Http\Controllers\API\v1\AnalyticsController;
@@ -47,7 +49,15 @@ Route::apiResource('comments', CommentController::class)->except([
 Route::apiResource('contacts', ContactController::class)->except([
      'update'
 ]);
+Route::apiResource('enquiries', ServiceEnquiryController::class)->except([
+     'update'
+]);
+Route::apiResource('requests', ProductRequestController::class)->except([
+     'update'
+]);
 Route::get('contacts/csv/download', [ContactController::class, 'exportCsv']);
+Route::get('requests/csv/download', [ProductRequestController::class, 'exportCsv']);
+Route::get('enquiries/csv/download', [ServiceEnquiryController::class, 'exportCsv']);
 Route::apiResource('subscriptions', SubscriptionController::class)->except([
     'update', 'show'
 ]);

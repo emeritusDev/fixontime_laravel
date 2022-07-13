@@ -16,6 +16,10 @@ use App\Services\Contact\IContactService;
 use App\Services\Contact\ContactService;
 use App\Services\Learning\ILearningService;
 use App\Services\Learning\LearningService;
+use App\Services\Enquiry\IEnquiryService;
+use App\Services\Enquiry\EnquiryService;
+use App\Services\ProductRequest\IProductRequestService;
+use App\Services\ProductRequest\ProductRequestService;
 use App\Services\IStorageService;
 use App\Services\LocalStorageService;
 
@@ -35,6 +39,8 @@ class CustomServiceProvider extends ServiceProvider
         $this->app->bind(ISubscriptionService::class, SubscriptionService::class);
         $this->app->bind(IContactService::class, ContactService::class);
         $this->app->bind(ILearningService::class, LearningService::class);
+        $this->app->bind(IEnquiryService::class, EnquiryService::class);
+        $this->app->bind(IProductRequestService::class, ProductRequestService::class);
     }
 
     /**

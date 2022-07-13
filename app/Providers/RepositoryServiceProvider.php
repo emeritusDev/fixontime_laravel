@@ -27,6 +27,12 @@ use App\Repositories\Eloquent\Contact\ContactRepositoryInterface;
 use App\Repositories\Eloquent\Learning\LearningRepository;
 use App\Repositories\Eloquent\Learning\LearningRepositoryInterface;
 
+use App\Repositories\Eloquent\ProductRequest\ProductRequestRepository;
+use App\Repositories\Eloquent\ProductRequest\ProductRequestRepositoryInterface;
+
+use App\Repositories\Eloquent\Enquiry\EnquiryRepository;
+use App\Repositories\Eloquent\Enquiry\EnquiryRepositoryInterface;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -46,6 +52,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SubscriptionRepositoryInterface::class, SubscriptionRepository::class);
         $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
         $this->app->bind(LearningRepositoryInterface::class, LearningRepository::class);
+        $this->app->bind(ProductRequestRepositoryInterface::class, ProductRequestRepository::class);
+        $this->app->bind(EnquiryRepositoryInterface::class, EnquiryRepository::class);
     }
 
     /**

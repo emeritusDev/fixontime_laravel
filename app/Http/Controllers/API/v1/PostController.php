@@ -105,7 +105,7 @@ class PostController extends BaseController
             return $this->handleResponse([], "deleted successfully", Response::HTTP_OK);
         } catch (\Throwable $err) {
             report($err);
-            return $this->handleError($e->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR );
+            return $this->handleError($err->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR );
         }
     }
 }

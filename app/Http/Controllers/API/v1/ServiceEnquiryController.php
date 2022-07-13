@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Http\Controllers\API\v1;
+namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\API\BaseController;
 use Illuminate\Http\Request;
-use App\Http\Resources\Contact\ContactCollection;
-use App\Http\Resources\Contact\ContactResource;
+use App\Http\Resources\ServiceEnquiry\ServiceEnquiryCollection;
+use App\Http\Resources\ServiceEnquiry\ServiceEnquiryResource;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use App\Services\Contact\IContactService;
-use App\Http\Requests\Contact\StoreContactRequest;
-use App\Http\Requests\Contact\UpdateContactRequest;
-use App\Exports\ContactsExport;
+use App\Services\Enquiry\IEnquiryService;
+use App\Http\Requests\Enquiry\StoreServiceEnquiryRequest;
+use App\Http\Requests\Enquiry\UpdateServiceEnquiryRequest;
+use App\Exports\ServiceEnquirysExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ContactController extends BaseController
+class ServiceEnquiryController extends BaseController
 {
-    private $contact;
+    private $serviceEnquiry;
 
-    public function __construct(IContactService $contact)
+    public function __construct(IEnquiryService $serviceEnquiry)
     {
         $this->middleware('auth:sanctum', ['except' => ['store']]);
-        $this->contact = $contact;
+        $this->serviceEnquiry = $serviceEnquiry;
     }
 
     /**
@@ -29,13 +29,14 @@ class ContactController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() : JsonResponse
+    public function index() 
     {
         try {
-            return $this->handleResponse(new ContactCollection($this->contact->getAllContact()), "", Response::HTTP_OK);
+            return $this->handleResponse(new ServiceEnquiryCollection($this->serviceEnquiry->getAllEnquiry()), "", Response::HTTP_OK);
         } catch (\Throwable $err) {
             report($err);
-            return $this->handleError("An error occur while retrieving available contact", [], Response::HTTP_INTERNAL_SERVER_ERROR );
+            return $err;
+            return $this->handleError("An error occur while retrieving available Enquiries", [], Response::HTTP_INTERNAL_SERVER_ERROR );
         }
     }
 
@@ -45,12 +46,13 @@ class ContactController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreContactRequest $request)
+    public function store(StoreServiceEnquiryRequest $request)
     {
         try {
-            return $this->handleResponse(new ContactResource($this->contact->createContact($request->validated())), "message sent successfully. we will keep in touch soon", Response::HTTP_CREATED);
+            return $this->handleResponse(new ServiceEnquiryResource($this->serviceEnquiry->createEnquiry($request->validated())), "message sent successfully. we will keep in touch soon", Response::HTTP_CREATED);
         } catch (\Throwable $err) {
             report($err);
+            return $err;
             return $this->handleError("An error while sending your message", [], Response::HTTP_INTERNAL_SERVER_ERROR );
         }
     }
@@ -64,10 +66,10 @@ class ContactController extends BaseController
     public function show($id)
     {
         try {
-            return $this->handleResponse(new ContactResource($this->contact->getContactById($id)), "", Response::HTTP_OK);
+            return $this->handleResponse(new ServiceEnquiryResource($this->serviceEnquiry->getEnquiryById($id)), "", Response::HTTP_OK);
         } catch (\Throwable $err) {
             report($err);
-            return $this->handleError("An error occur while retrieving contact with id - ".$id, [], Response::HTTP_INTERNAL_SERVER_ERROR );
+            return $this->handleError("An error occur while retrieving serviceEnquiry with id - ".$id, [], Response::HTTP_INTERNAL_SERVER_ERROR );
         }
     }
 
@@ -78,13 +80,13 @@ class ContactController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateContactRequest $request, $id)
+    public function update(UpdateServiceEnquiryRequest $request, $id)
     {
         try {
-            return $this->handleResponse(new ContactResource($this->contact->updateContactById($request->validated(), $id)), "Contact details updated successfully", Response::HTTP_OK);
+            return $this->handleResponse(new ServiceEnquiryResource($this->serviceEnquiry->updateEnquiryById($request->validated(), $id)), "ServiceEnquiry details updated successfully", Response::HTTP_OK);
         } catch (\Throwable $err) {
             report($err);
-            return $this->handleError("An error occur while updating contact information", [], Response::HTTP_INTERNAL_SERVER_ERROR );
+            return $this->handleError("An error occur while updating serviceEnquiry information", [], Response::HTTP_INTERNAL_SERVER_ERROR );
         }
     }
 
@@ -97,7 +99,7 @@ class ContactController extends BaseController
     public function destroy($id)
     {
         try {
-            $this->contact->deleteContactById($id);
+            $this->serviceEnquiry->deleteEnquiryById($id);
             return $this->handleResponse([], "deleted successfully", Response::HTTP_OK);
         } catch (\Throwable $e) {
             report($e);
@@ -108,7 +110,7 @@ class ContactController extends BaseController
     public function exportCsv()
     {
         try {
-            return Excel::download(new ContactsExport, 'FixOnTime-contact.xlsx');
+            return Excel::download(new ServiceEnquirysExport, 'FixOnTime-serviceEnquiry.xlsx');
         } catch (\Throwable $e) {
             report($e);
             return $this->handleError($e->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR );

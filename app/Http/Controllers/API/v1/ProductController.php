@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    private IProductService $Product;
+
+    public function __construct(IProductService $Product)
+    {
+        $this->middleware('auth:sanctum', ['except' => ['index','show']]);
+        $this->Product = $Product;
+    }
     /**
      * Display a listing of the resource.
      *

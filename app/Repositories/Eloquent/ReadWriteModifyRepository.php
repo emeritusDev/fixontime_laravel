@@ -53,7 +53,7 @@ class ReadWriteModifyRepository implements IReadOnlyRepository, IWriteModifyRepo
         return tap($this->model->findOrFail($id))->update($attributes);
     }
 
-    public function delete(int $id) : bool
+    public function delete(int|string $id) : bool
     {
         return $this->model->findOrFail($id)->destroy($id);
     }

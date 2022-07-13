@@ -23,5 +23,5 @@ interface IWriteModifyRepository
     * @return Bool
     * @param $id
     */
-    public function delete(int $id):bool;
+    public function delete(int|string $id):bool;
 }
