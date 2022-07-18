@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Mail\ResetPasswordTemplate;
 
-class SendResetPasswordNotification
+class SendResetPasswordNotification implements ShouldQueue
 {
     /**
      * Create the event listener.
