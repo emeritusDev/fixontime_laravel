@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon; 
 use App\Events\ResetPasswordProcessed as ResetPasswordEvent;
+use App\Mail\ResetPasswordTemplate;
 
 class ForgotPasswordController extends BaseController
 {
@@ -28,6 +29,8 @@ class ForgotPasswordController extends BaseController
                 'created_at' => Carbon::now()
             ]);
             event(new ResetPasswordEvent($userEmail, $token));
+            \Mail::to($userEmail)
+                ->send(new ResetPasswordTemplate($token, $userEmail));
             return $this->handleResponse([], 'We have e-mailed your password reset link!');
         } catch (\Throwable $th) {
             return $th;

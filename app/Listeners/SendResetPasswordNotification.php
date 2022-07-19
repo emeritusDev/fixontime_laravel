@@ -27,7 +27,7 @@ class SendResetPasswordNotification implements ShouldQueue
      */
     public function handle(ResetPasswordProcessed $event)
     {
-        error_log($event->token);
+        // error_log($event->token);
         \Mail::to($event->email)
                 ->send(new ResetPasswordTemplate($event->token, $event->email));
     }

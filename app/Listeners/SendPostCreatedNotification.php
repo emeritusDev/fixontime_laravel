@@ -38,3 +38,4 @@ class SendPostCreatedNotification implements ShouldQueue
         });
     }
 }
+// cd /home/seenergysolution/fixontime/ && php artisan queue:work --tries=3 --delay=60 --timeout=90 --stop-when-empty >> /dev/null 2>&1
