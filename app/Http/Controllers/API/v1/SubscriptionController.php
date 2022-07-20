@@ -13,6 +13,7 @@ use App\Http\Requests\Subscription\StoreSubscriptionRequest;
 use App\Http\Requests\Subscription\UpdateSubscriptionRequest;
 use App\Exports\SubscriptionsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Mail\WelcomeSubscriber;
 
 class SubscriptionController extends BaseController
 {
@@ -48,9 +49,13 @@ class SubscriptionController extends BaseController
     public function store(StoreSubscriptionRequest $request)
     {
         try {
+            error_log($request->email);
+            \Mail::to($request->email)
+                ->send(new WelcomeSubscriber());
             return $this->handleResponse(new SubscriptionResource($this->subscription->createSubscription($request->validated())), "subscription saved successfully", Response::HTTP_CREATED);
-        } catch (\Throwable $th) {
-            report($e);
+        } catch (\Throwable $err) {
+            report($err);
+            return $err;
             return $this->handleError("An error occur while creating subscription", [], Response::HTTP_INTERNAL_SERVER_ERROR );
         }
     }
