@@ -106,11 +106,3 @@
   </div>
 </body>
 </html>
-
-Hello,
-
-Thank you for signing up to our newsletter, we’re really excited to welcome you on board! Now that you’re on the list, you’ll be the first to hear about all our updates.
-Meanwhile, you might want to check our shop and FAQ sections.
-
-Regards,
-FOT Support Team
