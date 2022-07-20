@@ -67,7 +67,7 @@
                       <td style="padding:30px;background-color:rgb(255,255,255)">
                           <p style="margin-top:0px;margin-bottom:10px">Hello,</p>
                           <p style="margin-top:0px;margin-bottom:10px">
-                          <h2><span style=" font-weight: bold;">Subject:</span> :<span style="color: red;">{{$post->title}} </span> - New Blogpost Alert!
+                          <h2><i>{{$post->title}} - New Blogpost Alert! </i></h2>
                           </p>
                           {{$post->content}}
                       </td>
