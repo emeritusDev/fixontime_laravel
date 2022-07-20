@@ -40,4 +40,15 @@ class AdminController extends BaseController
             return $this->handleError("An error occur while submitting data. please try again", [], Response::HTTP_INTERNAL_SERVER_ERROR );
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            $this->user->findOrFail($id)->delete();
+            return $this->handleResponse([], "deleted successfully", Response::HTTP_OK);
+        } catch (\Throwable $e) {
+            report($e);
+            return $this->handleError($e->getMessage(), [], Response::HTTP_INTERNAL_SERVER_ERROR );
+        }
+    }
 }

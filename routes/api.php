@@ -48,7 +48,7 @@ Route::apiResource('comments', CommentController::class)->except([
     'index', 'update', 'show'
 ]);
 Route::apiResource('admins', AdminController::class)->only([
-    'index', 'store'
+    'index', 'store', 'destroy'
 ]);
 Route::apiResource('contacts', ContactController::class)->except([
      'update'
