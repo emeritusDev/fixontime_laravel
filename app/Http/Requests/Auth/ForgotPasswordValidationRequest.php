@@ -24,7 +24,7 @@ class ForgotPasswordValidationRequest extends FormRequest
     public function rules()
     {
         return [
-            "email" => "bail|required|string|email",
+            "email" => "bail|required|string|email|exists:users",
         ];
     }
 
